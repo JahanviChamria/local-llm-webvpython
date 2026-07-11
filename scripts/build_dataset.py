@@ -38,10 +38,14 @@ def clean(text: str) -> str:
 
 
 def read_dir(d: Path) -> dict[str, str]:
-    return {
-        f.name: clean(f.read_text(encoding="utf-8", errors="ignore"))
-        for f in sorted(d.glob("*.py"))
-    }
+    out: dict[str, str] = {}
+    seen: set[str] = set()
+    for f in sorted(d.glob("*.py")):
+        text = clean(f.read_text(encoding="utf-8", errors="ignore"))
+        if text not in seen:
+            seen.add(text)
+            out[f.name] = text
+    return out
 
 
 def write_split(name: str, text: str, stoi: dict[str, int]) -> None:

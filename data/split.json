@@ -1,12 +1,11 @@
 {
   "heldout": [
-    "MyPrograms__MakingShapes.py",
-    "MyPrograms__PlanetaryMotion.py"
+    "MyPrograms__PlanetaryMotion.py",
+    "MyPrograms__MakingShapes.py"
   ],
   "train": [
-    "MyPrograms__ProjectileMotion1Dim.py",
     "MyPrograms__Orbits.py",
-    "ProjectileMotionSimulation__main.py",
+    "MyPrograms__ProjectileMotion1Dim.py",
     "MyPrograms__Animation.py",
     "MyPrograms__ProjectileMotion2Dim.py"
   ]
