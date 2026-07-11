@@ -1,0 +1,6 @@
+{
+  "novel__bounce": "A red ball bounces on a blue floor under gravity. The ball starts above the floor, falls, reverses vertical velocity when it hits the floor, and leaves a trail. Animate with a rate-limited while loop.",
+  "novel__pendulum": "A pendulum swings back and forth: a small sphere hangs from a thin cylinder rod attached to a fixed pivot. Update the angle with simple harmonic motion inside an animation loop.",
+  "novel__spring": "A block on a spring oscillates horizontally. Draw a box attached to a helix anchored at a wall, compute the spring force with Hooke's law, and update the block's momentum and position in a loop with a small time step.",
+  "novel__charge": "Two charged spheres repel each other along a line following Coulomb's law. Compute the force between them each step, update their momenta and positions, and leave trails as they move apart."
+}

@@ -31,6 +31,7 @@ def main() -> None:
     if missing:
         raise SystemExit(f"missing descriptions: {missing}")
 
+    novel = json.loads((ROOT / "eval" / "novel_prompts.json").read_text("utf-8"))
     with open(ROOT / "eval" / "prompts.jsonl", "w", encoding="utf-8") as f:
         for name in split["heldout"]:
             f.write(json.dumps({
@@ -38,6 +39,9 @@ def main() -> None:
                 "prompt": descriptions[name],
                 "reference": heldout[name],
             }) + "\n")
+        for name, prompt in novel.items():
+            # pass@k judges execution only, so novel prompts need no reference
+            f.write(json.dumps({"name": name, "prompt": prompt, "reference": None}) + "\n")
 
     with open(ROOT / "data" / "lora_train.jsonl", "w", encoding="utf-8") as f:
         for name in split["train"]:
@@ -47,7 +51,9 @@ def main() -> None:
                 {"role": "assistant", "content": sims[name]},
             ]}) + "\n")
 
-    print(f"{len(split['heldout'])} eval prompts, {len(split['train'])} LoRA pairs")
+    print(f"{len(split['heldout']) + len(novel)} eval prompts "
+          f"({len(split['heldout'])} held-out + {len(novel)} novel), "
+          f"{len(split['train'])} LoRA pairs")
 
 
 if __name__ == "__main__":
