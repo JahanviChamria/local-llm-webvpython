@@ -31,6 +31,24 @@ LOCAL_SOURCES = [
     Path(r"C:\Users\jahan\Documents\Claude\Scientific-Inquiry-With-AI-Website"),
     Path(r"C:\Users\jahan\Documents\ComputerNetworks"),
     Path(r"C:\Users\jahan\Documents\Processing"),
+    Path(r"C:\Users\jahan\PycharmProjects"),
+    # coursework folders (Downloads), provided 2026-07-11
+    Path(r"C:\Users\jahan\Downloads\COSC202Lab"),
+    Path(r"C:\Users\jahan\Downloads\Program 5 starter files-20251031"),
+    Path(r"C:\Users\jahan\Downloads\Lab 6 starter files-20251031"),
+    Path(r"C:\Users\jahan\Downloads\Lab 05"),
+    Path(r"C:\Users\jahan\Downloads\P01_starter (1)"),
+    Path(r"C:\Users\jahan\Downloads\L04_starter"),
+    Path(r"C:\Users\jahan\Downloads\L03_starter"),
+    Path(r"C:\Users\jahan\Downloads\P02_milestone2"),
+    Path(r"C:\Users\jahan\Downloads\Lab11_starter"),
+    Path(r"C:\Users\jahan\Downloads\L10_starter"),
+    Path(r"C:\Users\jahan\Downloads\L09_starter"),
+    Path(r"C:\Users\jahan\Downloads\P02_starter"),
+    Path(r"C:\Users\jahan\Downloads\L07_starter"),
+    Path(r"C:\Users\jahan\Downloads\L06_starter"),
+    Path(r"C:\Users\jahan\Downloads\L01_starter"),
+    Path(r"C:\Users\jahan\Downloads\L02_starter"),
 ]
 
 # repos where she is a contributor, not the owner: keep only her files
