@@ -49,10 +49,13 @@ def read_dir(d: Path) -> dict[str, str]:
 
 
 def write_split(name: str, text: str, stoi: dict[str, int]) -> None:
+    # nanoGPT layout: data/{dataset}/train.bin, val.bin, meta.pkl
+    d = DATA / name
+    d.mkdir(exist_ok=True)
     ids = np.array([stoi[c] for c in text], dtype=np.uint16)
     n_val = max(1, int(len(ids) * VAL_FRACTION))
-    ids[: len(ids) - n_val].tofile(DATA / f"{name}_train.bin")
-    ids[len(ids) - n_val :].tofile(DATA / f"{name}_val.bin")
+    ids[: len(ids) - n_val].tofile(d / "train.bin")
+    ids[len(ids) - n_val :].tofile(d / "val.bin")
     print(f"{name}: {len(ids) - n_val:,} train / {n_val:,} val tokens")
 
 
@@ -94,12 +97,13 @@ def main() -> None:
     chars = sorted(set(pretrain_text) | set(finetune_text))
     stoi = {c: i for i, c in enumerate(chars)}
     itos = {i: c for i, c in enumerate(chars)}
-    with open(DATA / "meta.pkl", "wb") as f:
-        pickle.dump({"vocab_size": len(chars), "stoi": stoi, "itos": itos}, f)
     print(f"vocab: {len(chars)} chars")
 
     write_split("pretrain", pretrain_text, stoi)
     write_split("finetune", finetune_text, stoi)
+    for name in ("pretrain", "finetune"):
+        with open(DATA / name / "meta.pkl", "wb") as f:
+            pickle.dump({"vocab_size": len(chars), "stoi": stoi, "itos": itos}, f)
 
 
 if __name__ == "__main__":
