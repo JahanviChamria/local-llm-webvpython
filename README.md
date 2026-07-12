@@ -23,7 +23,9 @@ Two arms, same evaluation.
 
 pass@1 and pass@5 over 6 prompts (2 held-out sims never trained on + 4 novel physics prompts), 10 samples per prompt, temperature 0.8. A sample passes if it parses (`ast.parse`) and executes under a headless VPython stub (`eval/vpython_stub.py`) without exception, bounded at 300 animation steps, 20 s timeout.
 
-Results: **in progress** — table lands here after the Colab training runs.
+Arm A training (T4, 2026-07-12): stage-1 val loss 5.86 -> 1.395 (best at step 3500 of 5000, best-val checkpoint kept as overfitting set in). Stage-2 finetune val 0.035, which mostly measures memorization of the oversampled sim mix; pass@k below is the honest metric.
+
+Results: **in progress** — table lands here after the arm B run and eval.
 
 | Arm | pass@1 | pass@5 |
 |---|---|---|
