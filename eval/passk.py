@@ -62,6 +62,13 @@ def runs_ok(code: str) -> bool:
         Path(path).unlink(missing_ok=True)
 
 
+def trim_incomplete(code: str) -> str:
+    """Drop a trailing line cut off by the token budget, standard for pass@k."""
+    if "\n" in code and not code.endswith("\n"):
+        code = code[: code.rfind("\n") + 1]
+    return code
+
+
 def strip_fences(text: str) -> str:
     text = text.strip()
     if text.startswith("```"):
@@ -97,7 +104,10 @@ class ArmA:
 
     def generate(self, prompt: str) -> str:
         header = "".join(f"# {line}\n" for line in prompt.splitlines())
-        ids = [self.stoi[c] for c in header if c in self.stoi]
+        return self.generate_completion(header)
+
+    def generate_completion(self, start: str) -> str:
+        ids = [self.stoi[c] for c in start if c in self.stoi]
         x = self.torch.tensor(ids, dtype=self.torch.long)[None, ...]
         with self.torch.no_grad():
             y = self.model.generate(
@@ -144,7 +154,7 @@ def main() -> None:
         for p in prompts:
             c = 0
             for _ in range(args.n):
-                if runs_ok(arm.generate(p["prompt"])):
+                if runs_ok(trim_incomplete(arm.generate(p["prompt"]))):
                     c += 1
             per_prompt.append({"name": p["name"], "n": args.n, "passed": c})
             print(f"  {p['name']}: {c}/{args.n} ran")

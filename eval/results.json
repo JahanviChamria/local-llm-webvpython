@@ -1,0 +1,76 @@
+{
+  "a": {
+    "arm": "nanoGPT (from scratch)",
+    "pass@1": 0.0,
+    "pass@5": 0.0,
+    "prompts": [
+      {
+        "name": "MyPrograms__PlanetaryMotion.py",
+        "n": 10,
+        "passed": 0
+      },
+      {
+        "name": "MyPrograms__MakingShapes.py",
+        "n": 10,
+        "passed": 0
+      },
+      {
+        "name": "novel__bounce",
+        "n": 10,
+        "passed": 0
+      },
+      {
+        "name": "novel__pendulum",
+        "n": 10,
+        "passed": 0
+      },
+      {
+        "name": "novel__spring",
+        "n": 10,
+        "passed": 0
+      },
+      {
+        "name": "novel__charge",
+        "n": 10,
+        "passed": 0
+      }
+    ]
+  },
+  "a_seeded": {
+    "arm": "nanoGPT (from scratch)",
+    "metric": "code-seeded run rate",
+    "rate": 0.183,
+    "seeds": [
+      {
+        "seed": "ball=sphere(pos=vector(0,5,0), color=col",
+        "n": 10,
+        "passed": 0
+      },
+      {
+        "seed": "sun=sphere(pos=vector(0,0,0), color=colo",
+        "n": 10,
+        "passed": 10
+      },
+      {
+        "seed": "scene.background=color.white",
+        "n": 10,
+        "passed": 0
+      },
+      {
+        "seed": "g=9.8",
+        "n": 10,
+        "passed": 0
+      },
+      {
+        "seed": "graph(width=400, height=250, background=",
+        "n": 10,
+        "passed": 0
+      },
+      {
+        "seed": "table=box(pos=vector(0,-2,0), color=colo",
+        "n": 10,
+        "passed": 1
+      }
+    ]
+  }
+}

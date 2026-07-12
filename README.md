@@ -25,12 +25,14 @@ pass@1 and pass@5 over 6 prompts (2 held-out sims never trained on + 4 novel phy
 
 Arm A training (T4, 2026-07-12): stage-1 val loss 5.86 -> 1.395 (best at step 3500 of 5000, best-val checkpoint kept as overfitting set in). Stage-2 finetune val 0.035, which mostly measures memorization of the oversampled sim mix; pass@k below is the honest metric.
 
-Results: **in progress** — table lands here after the arm B run and eval.
+Results (arm B pending its training run):
 
-| Arm | pass@1 | pass@5 |
-|---|---|---|
-| nanoGPT from scratch | – | – |
-| Qwen2.5-Coder-0.5B + LoRA | – | – |
+| Arm | pass@1 | pass@5 | code-seeded run rate |
+|---|---|---|---|
+| nanoGPT from scratch | 0.00 | 0.00 | 0.18 |
+| Qwen2.5-Coder-0.5B + LoRA | – | – | n/a |
+
+The from-scratch model cannot follow NL instructions — expected for 10M params on 2.3M chars, and the reason the eval includes a completion-style metric for it. Seeded with a code opening it produces runnable VPython 18% of the time (11/60), and 10/10 for a seed matching a training sim, which is memorization at work. Raw counts in `eval/results.json`.
 
 ## Pipeline
 
