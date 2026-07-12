@@ -5,6 +5,7 @@ out_dir = 'out'
 dataset = 'finetune'
 init_from = 'resume'
 
+block_size = 256  # must match the pretrained model's context length
 batch_size = 64
 gradient_accumulation_steps = 1
 learning_rate = 1e-4
