@@ -17,7 +17,7 @@ Two arms, same evaluation.
 
 - 497 deduplicated source files, 2.2 MB: 50 GitHub repos, glowscript.org programs, PyCharm projects, coursework.
 - 6 unique Web VPython sims of mine plus 52 official GlowScript demo programs (public augmentation, since 6 sims alone would only teach memorization).
-- Caveats: coursework folders include professor-written starter scaffold that cannot be cleanly separated; one sim (ProjectileMotion2Dim) relies on GlowScript's JS looseness (`running` read before assignment) and fails strict CPython execution.
+- Caveats: coursework folders include a starter scaffold that cannot be cleanly separated; one sim (ProjectileMotion2Dim) relies on GlowScript's JS looseness (`running` read before assignment) and fails strict CPython execution.
 
 ## Evaluation
 
