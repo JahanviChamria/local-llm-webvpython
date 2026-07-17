@@ -72,5 +72,42 @@
         "passed": 1
       }
     ]
+  },
+  "b": {
+    "arm": "Qwen2.5-Coder-0.5B + LoRA",
+    "pass@1": 0.183,
+    "pass@5": 0.532,
+    "prompts": [
+      {
+        "name": "MyPrograms__PlanetaryMotion.py",
+        "n": 10,
+        "passed": 3
+      },
+      {
+        "name": "MyPrograms__MakingShapes.py",
+        "n": 10,
+        "passed": 2
+      },
+      {
+        "name": "novel__bounce",
+        "n": 10,
+        "passed": 0
+      },
+      {
+        "name": "novel__pendulum",
+        "n": 10,
+        "passed": 5
+      },
+      {
+        "name": "novel__spring",
+        "n": 10,
+        "passed": 0
+      },
+      {
+        "name": "novel__charge",
+        "n": 10,
+        "passed": 1
+      }
+    ]
   }
 }

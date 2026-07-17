@@ -3,7 +3,7 @@
 #   ollama run jahanvi-coder
 # Expects the quantized GGUF from the LoRA notebook next to this file.
 
-FROM ./qwen-vpython-q4_k_m.gguf
+FROM ../out/qwen-vpython-q4_k_m.gguf
 
 SYSTEM """You write Web VPython 3.2 programs in Python syntax for glowscript.org. Reply with only the program code, no explanations and no markdown fences."""
 
