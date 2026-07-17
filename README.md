@@ -53,4 +53,4 @@ Corpus and data files stay out of git (personal code); the scripts regenerate th
 
 ## Demo
 
-`demo/app.py` serves a prompt box on localhost. Pick an arm, generate, copy, paste into the glowscript.org editor, and the sim runs in the browser.
+`demo/app.py` serves a prompt box on localhost. Pick an arm, generate, copy, paste into the glowscript.org editor, and the sim runs in the browser. For the LoRA arm the demo samples up to 5 candidates and returns the first that executes under the eval stub — the same filtered sampling that pass@5 measures, so a click succeeds far more often than pass@1 suggests. The stub is more permissive than glowscript.org (it tolerates made-up attribute calls that GlowScript rejects), so a verified sample can still fail in the browser.

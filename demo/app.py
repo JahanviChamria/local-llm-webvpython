@@ -6,6 +6,10 @@ Arm B needs Ollama serving jahanvi-coder (ollama create -f demo/Modelfile).
 
 Stdlib only. Generated code gets the Web VPython header prepended so it
 pastes straight into the glowscript.org editor.
+
+Arm B does best-of-n: up to N_BEST candidates, each checked under the
+eval stub, first one that runs is returned. The stub is more permissive
+than glowscript.org, so a verified sample can still fail there.
 """
 
 import json
@@ -15,10 +19,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "eval"))
-from passk import ArmA, ArmB  # noqa: E402
+from passk import ArmA, ArmB, runs_ok, trim_incomplete  # noqa: E402
 
 PORT = 8155
 HEADER = "Web VPython 3.2\n"
+N_BEST = 5  # arm B: sample until one candidate runs under the stub
 
 PAGE = """<!doctype html>
 <html><head><meta charset="utf-8"><title>jahanvi-coder</title>
@@ -54,7 +59,9 @@ a { color: #8ab4f8; }
 <script>
 async function gen() {
   const status = document.getElementById('status');
-  status.textContent = 'generating...';
+  const armSel = document.getElementById('arm').value;
+  status.textContent = armSel === 'b'
+    ? 'generating (verifies candidates, up to ~1 min)...' : 'generating...';
   document.getElementById('code').textContent = '';
   try {
     const r = await fetch('/generate', { method: 'POST',
@@ -63,7 +70,7 @@ async function gen() {
                              arm: document.getElementById('arm').value }) });
     const j = await r.json();
     document.getElementById('code').textContent = j.code || j.error;
-    status.textContent = j.code ? '' : 'error';
+    status.textContent = j.code ? (j.note || '') : 'error';
   } catch (e) { status.textContent = 'error: ' + e; }
 }
 function copyCode() {
@@ -91,8 +98,19 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         body = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
         try:
-            code = get_arm(body["arm"]).generate(body["prompt"])
-            payload = {"code": HEADER + code.strip() + "\n"}
+            arm = get_arm(body["arm"])
+            if body["arm"] == "b":
+                for attempt in range(1, N_BEST + 1):
+                    code = trim_incomplete(arm.generate(body["prompt"]))
+                    if runs_ok(code):
+                        note = f"ran under the eval stub (attempt {attempt}/{N_BEST})"
+                        break
+                else:
+                    note = f"no candidate ran in {N_BEST} tries, showing the last"
+            else:
+                code = arm.generate(body["prompt"])
+                note = ""
+            payload = {"code": HEADER + code.strip() + "\n", "note": note}
         except Exception as e:  # noqa: BLE001 - surface any failure to the page
             payload = {"error": f"{type(e).__name__}: {e}"}
         data = json.dumps(payload).encode()
